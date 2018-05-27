@@ -18,10 +18,20 @@ var playerStore = Ext.create('Ext.data.Store', {
     ]
 });
 
+Ext.define('choosePlayer.GridController', {
+   extend: 'Ext.app.ViewController',
+   alias: 'controller.choosePlayer',
+
+   onApprove: function(grid, rowIndex, colIndex) {
+      var rec = grid.getStore().getAt(rowIndex);
+      Ext.Msg.alert('Appve', rec.get('name'));
+   }
+});
 
 Ext.onReady(function() {
     // Creation of first grid
     Ext.create('Ext.grid.Panel', {
+        controller: 'choosePlayer',
         store: playerStore,
         stripeRows: true,
         title: 'Best NBA Players',  // Title for the grid
@@ -30,13 +40,6 @@ Ext.onReady(function() {
         collapsible: true,             // property to collapse grid
         enableColumnMove:true,              // property which allows column to move to different position by dragging that column.
         enableColumnResize:true,        // property which allows to resize column run time.
-        listeners: {
-            click: function () {
-               var current_cell = this.getCell(true);
-               current_cell.focus();
-               console.log(current_cell);
-            }
-        },
         columns:
             [{
                 header: 'Name',
@@ -62,6 +65,16 @@ Ext.onReady(function() {
                 flex: .5,
                 sortable: true,
                 hideable: true
+            }, {
+                xtype: 'actioncolumn',
+                width: 50,
+                menuDisabled: true,
+                sortable: false,
+
+                items: [{
+                    iconCls: 'x-fa fa-check green',
+                    handler: 'onApprove'
+                }]
             }]
     });
 });
