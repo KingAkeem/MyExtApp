@@ -1,7 +1,0 @@
-ext-6.2.0/*
-!ext-6.2.0/build/classic/theme-triton/resources/theme-triton-all.css
-!ext-6.2.0/build/ext-all.js
-.idea
-vim.exe.stackdump
-go_server/.idea/*
-
