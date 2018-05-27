@@ -24,7 +24,6 @@ Ext.define('choosePlayer.GridController', {
 
    onApprove: function(grid, rowIndex, colIndex) {
       var rec = grid.getStore().getAt(rowIndex);
-      Ext.Msg.alert('Approve', rec.get('name'));
       var endpoint = "http://localhost:8080/test";
       Ext.Ajax.request({
           disableCaching: false,
@@ -37,8 +36,7 @@ Ext.define('choosePlayer.GridController', {
           noCache: false,
           success: function (response, opts) {
               console.log('Succeed');
-              var obj = Ext.decode(response.responseText);
-              console.dir(obj);
+              console.log(response);
              Ext.Msg.alert('Success', 'Eureka!');
           },
           failure: function (response, opts) {
