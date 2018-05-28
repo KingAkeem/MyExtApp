@@ -3,20 +3,18 @@ package main
 import (
 "net/http"
 "log"
-	"encoding/json"
+	"fmt"
 )
 
-type choiceResponse struct {
-	Answer string `json:"answer"`
-}
 func receiveVote(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-type", "application/json")
 	w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-	if r.Method == "GET" {
-		ch := choiceResponse{"YES"}
-		json.NewEncoder(w).Encode(ch)
-		log.Println("Reached")
+	w.Header().Set("Access-Control-Allow-Methods", "PUT")
+	if r.Method == "POST" {
+		r.ParseForm()
+		fmt.Println(r.Form)
 	}
 }
 func main() {
